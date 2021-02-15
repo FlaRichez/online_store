@@ -33,12 +33,19 @@ def order_page(request,products_id):
         if request.method == 'POST':
             form = OrderForm(request.POST)
             if form.is_valid():
-                total_price = product.price - form.cleaned_data['quantity']
+                if 20<profile.order_count<40:
+                    profile.sale_amount = 0.1
+                    total_price = (product.price - product.price * profile.sale_amount) * form.cleaned_data['quantity']
+                elif 40<profile.order_count<60:
+                    profile.sale_amount = 0.2
+                    total_price = (product.price - product.price * profile.sale_amount) * form.cleaned_data['quantity']
                 if product.sale:
                     total_price = total_price - total_price * 0.2
                 if form.cleaned_data['payment_method'] == "wallet":
                     if profile.wallet >= total_price:
                         profile.wallet -= total_price
+                        profile.order_count += 1
+                        profile.save()
                         return HttpResponse('Thanks for buying!')
                     else:
                         return HttpResponse('Not enough money')
