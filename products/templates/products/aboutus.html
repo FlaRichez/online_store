@@ -1,0 +1,7 @@
+{% extends 'products/base.html' %}
+{% block content %}
+{% for us in about_us %}
+    <h1>{{ us.title }}</h1>
+    <p> {{ us.description }}</p>
+{% endfor %}
+{% endblock %}

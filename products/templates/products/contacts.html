@@ -1,0 +1,24 @@
+{% extends 'products/base.html' %}
+{% block content %}
+
+<table>
+    <tr>
+        <td><p>phone: 0772757562</p></td>
+        <td><p>email: flarichez312@gmail.com</p></td>
+        <td><p>address: Kyrgyzstan, Bishkek</p></td>
+        <td><p>face:director</p></td>
+    </tr>
+
+
+
+
+    <tr>+{% for contact in contacts %}
+  +      <td>{{ contact.phone }}</td>
+      <td>{{ contact.email }}</td>
+      <td>{{ contact.address }}</td>
+        <td>{{ contact.face}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
